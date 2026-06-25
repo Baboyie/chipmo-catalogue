@@ -609,21 +609,31 @@
 
           /* ── Product detail modal ── */
           #prod-modal {
-            display: none;
+            display: flex;
             position: fixed;
             inset: 0;
             z-index: 500;
             align-items: center;
             justify-content: center;
             padding: 16px;
+            pointer-events: none;
+            visibility: hidden;
+            transition: visibility 0s 0.32s;
           }
-          #prod-modal.open { display: flex; }
+          #prod-modal.open {
+            pointer-events: auto;
+            visibility: visible;
+            transition: visibility 0s 0s;
+          }
           .pm-backdrop {
             position: absolute;
             inset: 0;
             background: rgba(4,8,20,0.78);
             backdrop-filter: blur(8px);
+            opacity: 0;
+            transition: opacity 0.28s ease;
           }
+          #prod-modal.open .pm-backdrop { opacity: 1; }
           .pm-panel {
             position: relative;
             z-index: 1;
@@ -635,11 +645,15 @@
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            animation: pmIn 0.3s cubic-bezier(0.22,1,0.36,1) both;
+            opacity: 0;
+            transform: scale(0.88) translateY(24px);
+            transition:
+              opacity 0.28s ease,
+              transform 0.32s cubic-bezier(0.34,1.56,0.64,1);
           }
-          @keyframes pmIn {
-            from { opacity:0; transform:scale(0.93) translateY(20px); }
-            to   { opacity:1; transform:none; }
+          #prod-modal.open .pm-panel {
+            opacity: 1;
+            transform: none;
           }
           .pm-close {
             position: sticky;
