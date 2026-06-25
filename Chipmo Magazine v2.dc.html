@@ -1523,7 +1523,7 @@
               as="p"
               hint-placeholder-count="0"
             >
-              <div class="card fi">
+              <div class="card fi" data-prod-id="{{ p.id }}">
                 <div class="card-img-wrap" style="min-height: 230px">
                   <div class="price-tag">{{ p.price }}</div>
                   <img data-cimg="{{ p.img }}" alt="{{ p.name }}" />
@@ -1658,9 +1658,9 @@
           ]);
           const printers = cat('04','06','Printers & gate','Принтер ба хаалга',
             'RFID таг хэвлэх принтер, гарцын дохиоллын хаалга.', [
-            { id:'cp30', name:'CP30', nameEn:'Desktop RFID printer', specs:[{k:'Нягтрал',v:'203/300 dpi'},{k:'UHF',v:'902–928 MHz'},{k:'Interface',v:'USB · Ethernet'}], price:'5,900,000 ₮',
-              desc:'Desktop RFID таг хэвлэх принтер. UHF encode-той, тагийг хэвлэхтэй зэрэг бичдэг. Агуулах, дэлгүүрийн таг үйлдвэрлэлд зориулагдсан.',
-              fullSpecs:[{k:'Нягтрал',v:'203 dpi / 300 dpi'},{k:'UHF давтамж',v:'902–928 MHz'},{k:'Протокол',v:'EPC Gen 2 ISO 18000-6C'},{k:'Хурд',v:'6 ips (152 мм/сек)'},{k:'Цаасны өргөн',v:'25–108 мм'},{k:'Interface',v:'USB 2.0, Ethernet, RS232'},{k:'Дэлгэц',v:'2.3" TFT'},{k:'Тэжээл',v:'100–240V AC'},{k:'Хэмжээ',v:'245 × 248 × 305 мм'}] },
+            { id:'cp30', name:'CP30', nameEn:'Desktop RFID printer', specs:[{k:'Нягтрал',v:'203/300 dpi'},{k:'UHF',v:'860–928 MHz'},{k:'Interface',v:'USB · BT · Ethernet'}], price:'5,900,000 ₮',
+              desc:'Chainway CP30 — 4 инчийн UHF RFID таг хэвлэх ширээний принтер. Impinj E510 encode module-тай, хэвлэхтэй зэрэг тагт бичдэг. Агуулах, дэлгүүр, логистикийн RFID таг үйлдвэрлэлд зориулагдсан.',
+              fullSpecs:[{k:'Нягтрал',v:'203 dpi / 300 dpi'},{k:'Хэвлэх өргөн',v:'108 мм (203dpi) / 106 мм (300dpi)'},{k:'Хэвлэх хурд',v:'8 ips (203dpi) / 6 ips (300dpi)'},{k:'UHF давтамж',v:'860–928 MHz'},{k:'RFID протокол',v:'EPC C1G2 ISO 18000-6C'},{k:'RFID module',v:'Impinj E510 (M6E-NANO)'},{k:'Цаасны өргөн',v:'25.4–118 мм'},{k:'Хэвлэх арга',v:'Thermal transfer / Direct thermal'},{k:'Дэлгэц',v:'3.5" LCD touch screen'},{k:'Interface',v:'USB, Ethernet, Bluetooth'},{k:'Тэжээл',v:'100–240V AC'},{k:'Температур',v:'5°C – 40°C'}] },
             { id:'ct20', name:'CT20', nameEn:'RFID alarm gate',      specs:[{k:'Төрөл',v:'UHF RFID хаалга'},{k:'Протокол',v:'EPC Gen 2'},{k:'Хэрэглээ',v:'Дэлгүүр · Агуулах'}], price:'6,500,000 ₮',
               desc:'Гарцын RFID таг уншигч хаалга. Дэлгүүр, агуулахын оролт, гаралтад суурилуулна. Зөвшөөрөлгүй гарвал дохиоллын систем асдаг.',
               fullSpecs:[{k:'Төрөл',v:'UHF RFID хаалга'},{k:'Протокол',v:'EPC Gen 2 ISO 18000-6C'},{k:'Давтамж',v:'902–928 MHz'},{k:'Хүч',v:'30 dBm (1 W)'},{k:'Уншилт',v:'≤ 2 м'},{k:'Антенн',v:'4 × built-in'},{k:'Дохиолол',v:'LED + дуут'},{k:'Interface',v:'RJ45 Ethernet, RS232'},{k:'Хэмжээ',v:'1800 × 800 × 200 мм'}] },
