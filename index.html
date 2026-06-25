@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preload" as="image" href="assets/c72.webp" />
     <script
       crossorigin
       src="https://unpkg.com/react@18/umd/react.production.min.js"
@@ -974,7 +975,7 @@
               </div>
             </div>
             <div class="hero-img">
-              <img id="hero-product-img" src="assets/c72.png" alt="Chipmo RFID Reader" />
+              <img id="hero-product-img" src="assets/c72.webp" alt="Chipmo RFID Reader" />
             </div>
           </div>
         </div>
@@ -1283,7 +1284,7 @@
         }
         renderVals() {
           const cat = (num, page, labelEn, labelMn, intro, products) => {
-            products.forEach((p, i) => { p.no = String(i+1).padStart(2,'0'); p.img = 'assets/' + p.id + '.png'; });
+            products.forEach((p, i) => { p.no = String(i+1).padStart(2,'0'); p.img = 'assets/' + p.id + '.webp'; });
             return { num, page, labelEn, labelMn, intro, products };
           };
           const tags = cat('01','03','RFID Tag','Таг ба наалт',
@@ -1410,7 +1411,7 @@
         function nextSrc() {
           var s = step;
           step = (step + 1) % sequence.length;
-          return 'assets/' + pickRandom(s) + '.png';
+          return 'assets/' + pickRandom(s) + '.webp';
         }
 
         function reveal(img) {
@@ -1455,6 +1456,31 @@
         if (document.readyState === 'loading')
           document.addEventListener('DOMContentLoaded', init);
         else setTimeout(init, 200);
+      })();
+
+      // ══ SLIDESHOW IMAGE PRELOADER ══
+      // Silently fetch all slideshow assets into the browser cache after page load
+      // so every swap is instant instead of waiting on a network request
+      (function () {
+        var imgs = [
+          'c72','c5','sr160','r6',
+          'tag-normal','tag-metal','tag-liquid','tag-wash',
+          'r1','r3','ura4','antenna',
+          'cp30','ct20'
+        ];
+        function preload() {
+          imgs.forEach(function (id) {
+            var i = new Image();
+            i.src = 'assets/' + id + '.webp';
+          });
+        }
+        // Defer until after the page is interactive so it doesn't compete with
+        // the initial render
+        if (document.readyState === 'complete') {
+          preload();
+        } else {
+          window.addEventListener('load', preload);
+        }
       })();
 
       // ══ MOBILE NAV TOGGLE ══
