@@ -1,0 +1,1486 @@
+<!doctype html>
+<html lang="mn">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.production.min.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"
+          /* Animated hero background (remove the 'hero-animated' class on #hero to disable) */
+          #hero.hero-animated {
+            background: radial-gradient(130% 90% at 70% 10%, #203b8f 0%, #163067 30%, #071635 60%, #030612 100%);
+            background-size: 300% 300%;
+            animation: heroGradient 12s ease-in-out infinite;
+          }
+          @keyframes heroGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+          }
+    ></script>
+    <script src="./support.js"></script>
+    <style>
+      /* ── Custom cursor ── */
+      body,
+      button,
+      a,
+      input,
+      textarea,
+      select,
+      [role="button"],
+      .btn {
+        cursor: none !important;
+      }
+      #custom-cursor {
+        position: fixed;
+        width: 24px;
+        height: 24px;
+        pointer-events: none;
+        z-index: 9999;
+        transform: translate(-50%, -50%);
+        top: 0;
+        left: 0;
+      }
+      .cursor-dot {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: #3d8bff;
+        box-shadow:
+          0 0 8px #3d8bff,
+          0 0 16px rgba(61, 139, 255, 0.4);
+        border: 2px solid rgba(61, 139, 255, 0.6);
+        animation: cursor-pulse 1.5s ease-in-out infinite;
+      }
+      @keyframes cursor-pulse {
+        0%,
+        100% {
+          box-shadow:
+            0 0 8px #3d8bff,
+            0 0 16px rgba(61, 139, 255, 0.4);
+        }
+        50% {
+          box-shadow:
+            0 0 12px #3d8bff,
+            0 0 24px rgba(61, 139, 255, 0.6);
+        }
+      }
+      /* Hide custom cursor on touch/mobile devices */
+      @media (hover: none), (pointer: coarse) {
+        #custom-cursor { display: none !important; }
+        body, button, a, input, textarea, select, [role="button"], .btn {
+          cursor: auto !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ══ CUSTOM CURSOR ══ -->
+    <div id="custom-cursor">
+      <div class="cursor-dot"></div>
+    </div>
+
+    <x-dc>
+      <helmet>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+          rel="stylesheet"
+        />
+        <style>
+          *,
+          *::before,
+          *::after {
+            box-sizing: border-box;
+          }
+          html,
+          body {
+            margin: 0;
+            font-family: "Inter", system-ui, sans-serif;
+            background: #f4f6fa;
+            color: #1a2540;
+            scroll-behavior: smooth;
+          }
+
+          /* ── Container ── */
+          .wrap {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 0 24px;
+          }
+
+          /* ── Sticky nav ── */
+          #nav {
+            position: sticky;
+            top: 0;
+            z-index: 200;
+            background: rgba(7, 13, 28, 0.97);
+            backdrop-filter: blur(10px);
+            border-bottom: none !important; /* removed thin line between header and hero */
+            -webkit-box-shadow: none !important;
+            box-shadow: 0 2px 0 rgba(7, 13, 28, 0.97) !important; /* extend bg downward to mask any line */
+            /* prevent any subpixel hairline when toggling sticky/scroll */
+            background-clip: padding-box;
+            outline: none !important;
+          }
+          .nav-inner {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 0 24px;
+            height: 58px;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+          }
+          .nav-brand {
+            font-weight: 800;
+            font-size: 18px;
+            color: #f3f6fb;
+            text-decoration: none;
+            flex: none;
+            letter-spacing: 0.01em;
+          }
+          .nav-links {
+            display: flex;
+            gap: 2px;
+            flex: 1;
+            overflow-x: auto;
+            scrollbar-width: none;
+          }
+          .nav-links::-webkit-scrollbar {
+            display: none;
+          }
+          .nav-links a {
+            color: #5a6478;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            padding: 6px 12px;
+            border-radius: 5px;
+            white-space: nowrap;
+            transition:
+              color 0.18s,
+              background 0.18s;
+          }
+          .nav-links a:hover {
+            color: #c8d4e8;
+            background: rgba(255, 255, 255, 0.06);
+          }
+
+          /* ── Hamburger button ── */
+          #nav-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            width: 36px;
+            height: 36px;
+            padding: 7px;
+            background: none;
+            border: none;
+            border-radius: 6px;
+            flex-shrink: 0;
+            margin-left: auto;
+            transition: background 0.18s;
+          }
+          #nav-toggle:hover { background: rgba(255, 255, 255, 0.07); }
+          #nav-toggle span {
+            display: block;
+            height: 2px;
+            background: #c8d4e8;
+            border-radius: 2px;
+            transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+                        opacity 0.18s;
+            transform-origin: center;
+          }
+          /* Animate bars into X when open */
+          #nav.menu-open #nav-toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+          #nav.menu-open #nav-toggle span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+          #nav.menu-open #nav-toggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+          /* ── Mobile slide-down menu ── */
+          #nav-mobile {
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.34s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(7, 13, 28, 0.98);
+            border-top: 1px solid rgba(61, 139, 255, 0.1);
+          }
+          #nav.menu-open #nav-mobile { max-height: 400px; }
+          #nav-mobile a {
+            display: block;
+            color: #7a8ea8;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            padding: 15px 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            transition: color 0.18s, background 0.18s, padding-left 0.18s;
+          }
+          #nav-mobile a:last-child { border-bottom: none; }
+          #nav-mobile a:hover, #nav-mobile a:active {
+            color: #c8d4e8;
+            background: rgba(255, 255, 255, 0.04);
+            padding-left: 32px;
+          }
+
+          @media (max-width: 720px) {
+            .nav-links  { display: none; }
+            #nav-toggle { display: flex; }
+          }
+
+          /* ── Hero ── */
+          #hero {
+            background: #000;
+            padding: 96px 0 72px;
+            border-top: none !important;
+            margin-top: -2px; /* overlap nav shadow to mask line */
+            position: relative;
+            overflow: hidden;
+          }
+          .hero-inner {
+            display: flex;
+            align-items: center;
+            gap: 48px;
+            position: relative;
+            z-index: 20;
+          }
+
+          /* Enlarged tag images (makes standard tag images match other product sizes) */
+          #tags .card-img-wrap img {
+            max-width: 95%;
+            max-height: 220px; /* larger than default */
+          }
+
+          /* Make CT20 noticeably larger (approx +70% compared to 130px) */
+          img[alt="CT20"] {
+            max-height: 220px !important;
+            width: auto !important;
+            display: block;
+            margin: 0 auto;
+          }
+
+          /* Animated hero background (remove the 'hero-animated' class on #hero to disable) */
+          #hero.hero-animated {
+            background: radial-gradient(
+              130% 90% at 70% 10%,
+              #203b8f 0%,
+              #163067 30%,
+              #071635 60%,
+              #030612 100%
+            );
+            background-size: 300% 300%;
+            animation: heroGradient 12s ease-in-out infinite;
+          }
+          @keyframes heroGradient {
+            0% {
+              background-position: 0% 50%;
+            }
+            50% {
+              background-position: 100% 50%;
+            }
+            100% {
+              background-position: 0% 50%;
+            }
+          }
+          .hero-text {
+            flex: 1;
+          }
+          .hero-eyebrow {
+            font-size: 12px;
+            letter-spacing: 0.26em;
+            text-transform: uppercase;
+            color: #3d8bff;
+            margin-bottom: 20px;
+          }
+          .hero-title {
+            font-size: clamp(72px, 12vw, 140px);
+            font-weight: 900;
+            line-height: 0.86;
+            letter-spacing: -0.045em;
+            margin: 0 0 14px;
+            /* Shiny sweep: gradient wider than text, animated across */
+            background: linear-gradient(
+              110deg,
+              #7a9ec0 0%,
+              #7a9ec0 28%,
+              #cce3ff 41%,
+              #ffffff 48%,
+              #b8d8ff 50%,
+              #ffffff 52%,
+              #cce3ff 59%,
+              #7a9ec0 72%,
+              #7a9ec0 100%
+            );
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+          }
+          .hero-sub {
+            font-size: clamp(18px, 3vw, 30px);
+            font-weight: 600;
+            color: #7a8ea8;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+            margin: 0 0 36px;
+          }
+          .hero-ctas {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+          }
+          .btn {
+            display: inline-block;
+            font-size: 14px;
+            font-weight: 700;
+            padding: 11px 22px;
+            border-radius: 6px;
+            text-decoration: none;
+            transition:
+              background 0.22s,
+              transform 0.22s,
+              border-color 0.22s,
+              color 0.22s,
+              box-shadow 0.22s;
+          }
+          .btn-primary {
+            background: #3d8bff;
+            color: #fff;
+            position: relative;
+            isolation: isolate;
+          }
+          /* Gradient sits behind the text, fades in on hover — avoids the gradient↔solid snap */
+          .btn-primary::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: linear-gradient(135deg, #1be9d0 0%, #3d8bff 60%, #6a5dff 100%);
+            opacity: 0;
+            transition: opacity 0.22s;
+            z-index: -1;
+          }
+          .btn-primary:hover::before { opacity: 1; }
+          .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 32px rgba(61, 139, 255, 0.6), 0 0 0 1px rgba(27, 233, 208, 0.25);
+            color: #fff;
+          }
+          .btn-outline {
+            border: 1px solid rgba(61, 139, 255, 0.4);
+            color: #8da8d0;
+          }
+          .btn-outline:hover {
+            border-color: #3d8bff;
+            color: #fff;
+            background: rgba(61, 139, 255, 0.18);
+            transform: translateY(-3px);
+            box-shadow: 0 0 28px rgba(61, 139, 255, 0.45), inset 0 0 12px rgba(61, 139, 255, 0.08);
+          }
+          .hero-img {
+            flex: 0 0 520px;
+            height: 520px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          .hero-img img {
+            max-width: 100%;
+            max-height: 520px;
+            object-fit: contain;
+            filter: drop-shadow(0 32px 60px rgba(0, 0, 0, 0.5))
+              drop-shadow(0 0 40px rgba(61, 139, 255, 0.2));
+          }
+
+          /* ── Hero product slideshow ── */
+          /* Emerge from center: scales from a 4% dot with blur clearing as it grows,
+             overshoots to 108% then settles — "materializing" effect */
+          @keyframes heroEnter {
+            0%   { opacity:0; transform:scale(0.04);
+                   filter:blur(22px) drop-shadow(0 0 0 transparent); }
+            45%  { opacity:1;
+                   filter:blur(0) drop-shadow(0 18px 36px rgba(0,0,0,.42)) drop-shadow(0 0 22px rgba(61,139,255,.18)); }
+            72%  { transform:scale(1.08); }
+            100% { opacity:1; transform:scale(1);
+                   filter:blur(0) drop-shadow(0 32px 60px rgba(0,0,0,.5)) drop-shadow(0 0 40px rgba(61,139,255,.2)); }
+          }
+          @keyframes heroExit {
+            0%   { opacity:1; transform:scale(1);
+                   filter:blur(0) drop-shadow(0 32px 60px rgba(0,0,0,.5)) drop-shadow(0 0 40px rgba(61,139,255,.2)); }
+            100% { opacity:0; transform:scale(0.04);
+                   filter:blur(18px) drop-shadow(0 0 0 transparent); }
+          }
+
+          /* ── Overview ── */
+          #overview {
+            background: #0c1525;
+            padding: 80px 0;
+          }
+          .overview-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.9fr;
+            gap: 64px;
+            align-items: start;
+          }
+          .section-eyebrow {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: #3d8bff;
+            margin-bottom: 10px;
+          }
+          .section-heading {
+            font-size: 34px;
+            font-weight: 800;
+            margin: 0 0 16px;
+            letter-spacing: -0.02em;
+          }
+          .section-heading.light {
+            color: #f3f6fb;
+          }
+          .section-heading.dark {
+            color: #1a2540;
+          }
+          .divider {
+            width: 46px;
+            height: 3px;
+            background: #3d8bff;
+            border-radius: 2px;
+            margin-bottom: 20px;
+          }
+          .overview-body {
+            font-size: 16px;
+            line-height: 1.68;
+            color: #b8c8dd;
+            margin: 0 0 12px;
+          }
+          .overview-body2 {
+            font-size: 13px;
+            line-height: 1.65;
+            color: #3a4a5e;
+            margin: 0;
+          }
+          .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 24px 0;
+          }
+          .stat {
+            border: 1px solid rgba(120, 150, 210, 0.14);
+            border-radius: 8px;
+            padding: 16px 18px;
+            background: rgba(255, 255, 255, 0.03);
+          }
+          .stat-val {
+            font-size: 26px;
+            font-weight: 800;
+            color: #f3f6fb;
+            line-height: 1;
+            margin-bottom: 5px;
+          }
+          .stat-val.accent {
+            color: #3d8bff;
+          }
+          .stat-val.small {
+            font-size: 15px;
+            line-height: 1.3;
+          }
+          .stat-lbl {
+            font-size: 11px;
+            color: #4a5568;
+            letter-spacing: 0.04em;
+          }
+          .pills {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+          }
+          .pill {
+            border: 1px solid rgba(61, 139, 255, 0.22);
+            border-radius: 6px;
+            padding: 9px 16px;
+          }
+          .pill-name {
+            font-size: 10px;
+            font-weight: 700;
+            color: #3d8bff;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+          }
+          .pill-sub {
+            font-size: 11px;
+            color: #3a4455;
+            margin-top: 2px;
+          }
+
+          /* Contents list */
+          .contents-lbl {
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #3d8bff;
+            margin-bottom: 14px;
+          }
+          .contents-row {
+            display: flex;
+            align-items: baseline;
+            gap: 14px;
+            padding: 13px 0;
+            border-top: 1px solid rgba(120, 150, 210, 0.12);
+            text-decoration: none;
+            transition: padding-left 0.2s;
+          }
+          .contents-row:hover {
+            padding-left: 6px;
+          }
+          .contents-num {
+            font-size: 18px;
+            font-weight: 800;
+            color: #3d8bff;
+            width: 30px;
+            flex: none;
+          }
+          .contents-mn {
+            color: #c8d4e8;
+            font-size: 15px;
+            font-weight: 600;
+          }
+          .contents-en {
+            color: #3a4a5e;
+            font-size: 12px;
+            margin-top: 2px;
+          }
+
+          /* ── Product sections ── */
+          .sec-light {
+            background: #f4f6fa;
+            padding: 80px 0;
+          }
+          .sec-dark {
+            background: #070d1c;
+            padding: 80px 0;
+          }
+          .sec-dark2 {
+            background: #0c1525;
+            padding: 80px 0;
+          }
+          .sec-desc {
+            font-size: 15px;
+            line-height: 1.65;
+            max-width: 640px;
+            margin: 8px 0 36px;
+          }
+          .sec-desc.light {
+            color: #7a8699;
+          }
+          .sec-desc.dark {
+            color: #5a6a7a;
+          }
+
+          /* ── Product grid ── */
+          .prod-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+          }
+          .prod-grid:last-of-type .card:nth-last-child(1) .card-img-wrap {
+            min-height: 200px;
+          }
+
+          /* ── Product card ── */
+          .card {
+            background: #fff;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 0, 0, 0.07);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transition:
+              transform 0.2s ease,
+              box-shadow 0.2s ease;
+          }
+          .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 40px rgba(61, 139, 255, 0.16);
+          }
+          .card-img-wrap {
+            background: radial-gradient(ellipse 72% 62% at 50% 54%, rgba(0, 28, 88, 0.13) 0%, rgba(0, 153, 255, 0.05) 52%, transparent 74%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 28px 24px;
+            min-height: 180px;
+            position: relative;
+          }
+          .card-img-wrap img {
+            max-width: 80%;
+            max-height: 130px;
+            object-fit: contain;
+            filter: drop-shadow(0 6px 22px rgba(15, 45, 130, 0.45))
+              drop-shadow(0 0 8px rgba(50, 100, 200, 0.22));
+          }
+          img[alt="RFID alarm gate"] {
+            max-height: 180px !important;
+          }
+          img[alt="Metal-mount tag"] {
+            filter: brightness(1.05) contrast(1.1)
+              drop-shadow(0 6px 22px rgba(15, 45, 130, 0.45))
+              drop-shadow(0 0 8px rgba(50, 100, 200, 0.22)) !important;
+          }
+          .price-tag {
+            position: absolute;
+            top: 11px;
+            right: 11px;
+            background: #3d8bff;
+            color: #fff;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 9px;
+            border-radius: 4px;
+            letter-spacing: 0.02em;
+          }
+          .card-body {
+            padding: 15px 16px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+          }
+          .card-name {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1a2540;
+            margin: 0 0 3px;
+          }
+          .card-name-en {
+            font-size: 12px;
+            color: #9099aa;
+            margin: 0 0 12px;
+          }
+          .specs {
+            margin-top: auto;
+            border-top: 1px solid #edf0f5;
+            padding-top: 10px;
+          }
+          .spec-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 5px 0;
+            border-bottom: 1px solid #f0f2f7;
+            font-size: 12px;
+            gap: 8px;
+          }
+          .spec-row:last-child {
+            border-bottom: none;
+          }
+          .spec-k {
+            color: #9099aa;
+          }
+          .spec-v {
+            color: #1a2540;
+            font-weight: 600;
+            text-align: right;
+          }
+
+          /* ── Featured / hero product card ── */
+          .card-featured {
+            display: flex;
+            background: #fff;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 0, 0, 0.07);
+            overflow: hidden;
+            margin-bottom: 20px;
+            transition:
+              transform 0.2s ease,
+              box-shadow 0.2s ease;
+          }
+          .card-featured:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 60px rgba(61, 139, 255, 0.2);
+          }
+          .featured-img {
+            flex: 0 0 300px;
+            min-height: 280px;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 36px;
+            position: relative;
+          }
+          .featured-img img {
+            max-width: 100%;
+            max-height: 260px;
+            object-fit: contain;
+            filter: drop-shadow(0 16px 40px rgba(0, 0, 0, 0.55))
+              drop-shadow(0 0 30px rgba(61, 139, 255, 0.25));
+          }
+          .featured-body {
+            flex: 1;
+            padding: 28px 30px;
+            display: flex;
+            flex-direction: column;
+          }
+          .flagship-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #3d8bff;
+            margin-bottom: 12px;
+          }
+          .flagship-badge::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #3d8bff;
+          }
+          .featured-name {
+            font-size: 30px;
+            font-weight: 800;
+            color: #1a2540;
+            margin: 0 0 5px;
+            letter-spacing: -0.02em;
+          }
+          .featured-sub {
+            font-size: 13px;
+            color: #9099aa;
+            margin: 0 0 16px;
+          }
+          .featured-price {
+            font-size: 22px;
+            font-weight: 800;
+            color: #3d8bff;
+            margin-bottom: 20px;
+          }
+
+          /* ── Contact / footer ── */
+          #contact {
+            background: #070d1c;
+            border-top: 1px solid rgba(61, 139, 255, 0.12);
+            padding: 64px 0 44px;
+          }
+          .contact-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            padding-bottom: 36px;
+            border-bottom: 1px solid rgba(120, 150, 210, 0.1);
+            margin-bottom: 24px;
+          }
+          .footer-brand {
+            font-size: 28px;
+            font-weight: 800;
+            color: #f3f6fb;
+            letter-spacing: -0.02em;
+            margin: 0 0 10px;
+          }
+          .footer-tagline {
+            font-size: 14px;
+            color: #3a4a5e;
+            line-height: 1.5;
+          }
+          .footer-col-lbl {
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #2e3a4e;
+            margin-bottom: 8px;
+          }
+          .footer-col-val {
+            font-size: 14px;
+            font-weight: 600;
+            color: #c8d4e8;
+            line-height: 1.55;
+          }
+          .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: #2e3a4e;
+            flex-wrap: wrap;
+            gap: 8px;
+          }
+
+          /* ── Fade-in on scroll ── */
+          .fi {
+            opacity: 0;
+            transform: translateY(18px);
+            transition:
+              opacity 0.55s ease,
+              transform 0.55s ease;
+          }
+          .fi.on {
+            opacity: 1;
+            transform: none;
+          }
+
+          /* ── Hero text entrance ── */
+          /* Slides up from 24px below + fades in; staggered per element */
+          @keyframes heroTextIn {
+            0%   { opacity: 0; transform: translateY(24px); }
+            100% { opacity: 1; transform: translateY(0); }
+          }
+          /* Shiny sweep: moves the gradient across the text in a loop */
+          @keyframes shinyMove {
+            0%   { background-position: -100% center; }
+            100% { background-position: 200% center; }
+          }
+          .hero-eyebrow {
+            animation: heroTextIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both;
+          }
+          .hero-title {
+            /* entrance runs once, shiny loops forever after a short delay */
+            animation:
+              heroTextIn 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both,
+              shinyMove  3.2s linear 1.4s infinite;
+          }
+          .hero-sub {
+            animation: heroTextIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.48s both;
+          }
+          .hero-ctas {
+            animation: heroTextIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.72s both;
+          }
+
+          /* ── Responsive ── */
+          @media (max-width: 880px) {
+            .hero-inner {
+              flex-direction: column;
+              text-align: center;
+            }
+            .hero-img {
+              flex: none;
+              width: 100%;
+              height: 360px;
+              order: -1;
+            }
+            .hero-img img {
+              max-height: 360px;
+            }
+            .hero-ctas {
+              justify-content: center;
+            }
+            .overview-grid {
+              grid-template-columns: 1fr;
+              gap: 44px;
+            }
+            .card-featured {
+              flex-direction: column;
+            }
+            .featured-img {
+              flex: none;
+              min-height: 220px;
+            }
+            .contact-grid {
+              grid-template-columns: 1fr 1fr;
+            }
+          }
+          @media (max-width: 560px) {
+            #hero {
+              padding: 64px 0 48px;
+            }
+            .sec-light,
+            .sec-dark,
+            .sec-dark2,
+            #overview {
+              padding: 56px 0;
+            }
+            .prod-grid {
+              grid-template-columns: 1fr;
+            }
+            .contact-grid {
+              grid-template-columns: 1fr;
+            }
+            .hero-img {
+              height: 260px;
+            }
+            .hero-img img {
+              max-height: 260px;
+            }
+          }
+
+          @media print {
+            #nav {
+              display: none !important;
+            }
+            .fi {
+              opacity: 1 !important;
+              transform: none !important;
+            }
+            * {
+              -webkit-print-color-adjust: exact !important;
+              print-color-adjust: exact !important;
+            }
+          }
+        </style>
+      </helmet>
+
+      <!-- ══ NAV ══ -->
+      <nav id="nav">
+        <div class="nav-inner">
+          <a href="#hero" class="nav-brand"
+            >chipmo<span style="color: #3d8bff">.</span></a
+          >
+          <div class="nav-links">
+            <a href="#overview">Танилцуулга</a>
+            <a href="#tags">Таг</a>
+            <a href="#handheld">Гар уншигч</a>
+            <a href="#fixed">Суурин</a>
+            <a href="#printers">Принтер</a>
+            <a href="#contact">Холбоо</a>
+          </div>
+          <button id="nav-toggle" aria-label="Цэс нээх" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+        <div id="nav-mobile" aria-hidden="true">
+          <a href="#overview">Танилцуулга</a>
+          <a href="#tags">Таг</a>
+          <a href="#handheld">Гар уншигч</a>
+          <a href="#fixed">Суурин</a>
+          <a href="#printers">Принтер</a>
+          <a href="#contact">Холбоо</a>
+        </div>
+      </nav>
+
+      <!-- ══ HERO ══ -->
+      <section id="hero" class="hero-animated">
+        <div class="wrap">
+          <div class="hero-inner">
+            <div class="hero-text">
+              <div class="hero-eyebrow">RFID Solutions · Mongolia</div>
+              <div class="hero-title">RFID</div>
+              <div class="hero-sub">бүтээгдэхүүний каталог</div>
+              <div class="hero-ctas">
+                <a href="#tags" class="btn btn-primary">Бүтээгдэхүүн үзэх</a>
+                <a href="#contact" class="btn btn-outline">Холбоо барих</a>
+              </div>
+            </div>
+            <div class="hero-img">
+              <img id="hero-product-img" src="assets/c72.png" alt="Chipmo RFID Reader" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ OVERVIEW ══ -->
+      <section id="overview">
+        <div class="wrap">
+          <div class="overview-grid">
+            <!-- left: company description + stats -->
+            <div>
+              <div class="section-eyebrow">Бидний тухай</div>
+              <h2 class="section-heading light">Танилцуулга</h2>
+              <div class="divider"></div>
+              <p class="overview-body">
+                Chipmo нь Монголд RFID технологийг бодит үр дүнд хүргэдэг цогц
+                экосистем. Бид Hardware, Software, Service-ийг нэг дороос
+                нийлүүлж, агуулах, жижиглэн худалдаа, эд хөрөнгийн бүртгэлийн
+                шийдлийг бүрэн хэрэгжүүлдэг.
+              </p>
+              <p class="overview-body2">
+                Mongolia's complete RFID ecosystem — turning the technology into
+                real results, end-to-end.
+              </p>
+              <div class="stats-grid">
+                <div class="stat">
+                  <div class="stat-val accent">4</div>
+                  <div class="stat-lbl">Product lines</div>
+                </div>
+                <div class="stat">
+                  <div class="stat-val small">UHF<br />902–928</div>
+                  <div class="stat-lbl">MHz frequency</div>
+                </div>
+                <div class="stat">
+                  <div class="stat-val">33m</div>
+                  <div class="stat-lbl">Max read range</div>
+                </div>
+                <div class="stat">
+                  <div class="stat-val">900+</div>
+                  <div class="stat-lbl">Tags/sec</div>
+                </div>
+              </div>
+              <div class="pills">
+                <div class="pill">
+                  <div class="pill-name">Hardware</div>
+                  <div class="pill-sub">Таг, уншигч, антенн</div>
+                </div>
+                <div class="pill">
+                  <div class="pill-name">Software</div>
+                  <div class="pill-sub">Бүртгэл, хяналт</div>
+                </div>
+                <div class="pill">
+                  <div class="pill-name">Service</div>
+                  <div class="pill-sub">Суурилуулалт</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- right: contents -->
+            <div>
+              <div class="contents-lbl">Гарчиг · Contents</div>
+              <sc-for list="{{ contents }}" as="c" hint-placeholder-count="4">
+                <a href="{{ c.href }}" class="contents-row">
+                  <span class="contents-num">{{ c.num }}</span>
+                  <div>
+                    <div class="contents-mn">{{ c.mn }}</div>
+                    <div class="contents-en">{{ c.en }}</div>
+                  </div>
+                </a>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ TAGS ══ -->
+      <section id="tags" class="sec-light">
+        <div class="wrap">
+          <div class="section-eyebrow">01 · RFID Tag</div>
+          <h2 class="section-heading dark">{{ tags.labelMn }}</h2>
+          <p class="sec-desc dark">{{ tags.intro }}</p>
+          <div class="prod-grid">
+            <sc-for
+              list="{{ tags.products }}"
+              as="p"
+              hint-placeholder-count="0"
+            >
+              <div class="card fi">
+                <div class="card-img-wrap">
+                  <div class="price-tag">{{ p.price }}</div>
+                  <img data-cimg="{{ p.img }}" alt="{{ p.name }}" />
+                </div>
+                <div class="card-body">
+                  <div class="card-name">{{ p.name }}</div>
+                  <div class="card-name-en">{{ p.nameEn }}</div>
+                  <div class="specs">
+                    <sc-for
+                      list="{{ p.specs }}"
+                      as="s"
+                      hint-placeholder-count="0"
+                    >
+                      <div class="spec-row">
+                        <span class="spec-k">{{ s.k }}</span
+                        ><span class="spec-v">{{ s.v }}</span>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ HANDHELD ══ -->
+      <section id="handheld" class="sec-dark">
+        <div class="wrap">
+          <div class="section-eyebrow">02 · Handheld Readers</div>
+          <h2 class="section-heading light">{{ handheld.labelMn }}</h2>
+          <p class="sec-desc light">{{ handheld.intro }}</p>
+
+          <!-- Flagship -->
+          <div class="card-featured fi">
+            <div class="featured-img">
+              <img data-cimg="{{ hero.img }}" alt="{{ hero.name }}" />
+            </div>
+            <div class="featured-body">
+              <div class="flagship-badge">Онцлох бүтээгдэхүүн</div>
+              <div class="featured-name">{{ hero.name }}</div>
+              <div class="featured-sub">{{ hero.spec }}</div>
+              <div class="featured-price">{{ hero.price }}</div>
+              <div class="specs">
+                <sc-for
+                  list="{{ hero.specs }}"
+                  as="s"
+                  hint-placeholder-count="0"
+                >
+                  <div class="spec-row">
+                    <span class="spec-k">{{ s.k }}</span
+                    ><span class="spec-v">{{ s.v }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+
+          <!-- Other readers -->
+          <div
+            class="prod-grid"
+            style="grid-template-columns: repeat(auto-fill, minmax(220px, 1fr))"
+          >
+            <sc-for list="{{ handheldRest }}" as="p" hint-placeholder-count="0">
+              <div class="card fi">
+                <div class="card-img-wrap">
+                  <div class="price-tag">{{ p.price }}</div>
+                  <img data-cimg="{{ p.img }}" alt="{{ p.name }}" />
+                </div>
+                <div class="card-body">
+                  <div class="card-name">{{ p.name }}</div>
+                  <div class="card-name-en">{{ p.nameEn }}</div>
+                  <div class="specs">
+                    <sc-for
+                      list="{{ p.specs }}"
+                      as="s"
+                      hint-placeholder-count="0"
+                    >
+                      <div class="spec-row">
+                        <span class="spec-k">{{ s.k }}</span
+                        ><span class="spec-v">{{ s.v }}</span>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ FIXED READERS ══ -->
+      <section id="fixed" class="sec-light">
+        <div class="wrap">
+          <div class="section-eyebrow">03 · Fixed Readers</div>
+          <h2 class="section-heading dark">{{ fixed.labelMn }}</h2>
+          <p class="sec-desc dark">{{ fixed.intro }}</p>
+          <div class="prod-grid">
+            <sc-for
+              list="{{ fixed.products }}"
+              as="p"
+              hint-placeholder-count="0"
+            >
+              <div class="card fi">
+                <div class="card-img-wrap">
+                  <div class="price-tag">{{ p.price }}</div>
+                  <img data-cimg="{{ p.img }}" alt="{{ p.name }}" />
+                </div>
+                <div class="card-body">
+                  <div class="card-name">{{ p.name }}</div>
+                  <div class="card-name-en">{{ p.nameEn }}</div>
+                  <div class="specs">
+                    <sc-for
+                      list="{{ p.specs }}"
+                      as="s"
+                      hint-placeholder-count="0"
+                    >
+                      <div class="spec-row">
+                        <span class="spec-k">{{ s.k }}</span
+                        ><span class="spec-v">{{ s.v }}</span>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ PRINTERS & GATE ══ -->
+      <section id="printers" class="sec-dark2">
+        <div class="wrap">
+          <div class="section-eyebrow">04 · Printers &amp; Gate</div>
+          <h2 class="section-heading light">{{ printers.labelMn }}</h2>
+          <p class="sec-desc light">{{ printers.intro }}</p>
+          <div
+            class="prod-grid"
+            style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr))"
+          >
+            <sc-for
+              list="{{ printers.products }}"
+              as="p"
+              hint-placeholder-count="0"
+            >
+              <div class="card fi">
+                <div class="card-img-wrap" style="min-height: 230px">
+                  <div class="price-tag">{{ p.price }}</div>
+                  <img data-cimg="{{ p.img }}" alt="{{ p.name }}" />
+                </div>
+                <div class="card-body">
+                  <div class="card-name">{{ p.name }}</div>
+                  <div class="card-name-en">{{ p.nameEn }}</div>
+                  <div class="specs">
+                    <sc-for
+                      list="{{ p.specs }}"
+                      as="s"
+                      hint-placeholder-count="0"
+                    >
+                      <div class="spec-row">
+                        <span class="spec-k">{{ s.k }}</span
+                        ><span class="spec-v">{{ s.v }}</span>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ CONTACT ══ -->
+      <footer id="contact">
+        <div class="wrap">
+          <div class="contact-grid">
+            <div>
+              <div class="footer-brand">
+                chipmo<span style="color: #3d8bff">.</span>
+              </div>
+              <div class="footer-tagline">
+                RFID технологийг бодит үр дүн болгоё.
+              </div>
+            </div>
+            <div>
+              <div class="footer-col-lbl">Веб</div>
+              <div class="footer-col-val">chipmo.mn</div>
+            </div>
+            <div>
+              <div class="footer-col-lbl">И-мэйл</div>
+              <div class="footer-col-val">info@chipmo.mn</div>
+            </div>
+            <div>
+              <div class="footer-col-lbl">Хаяг</div>
+              <div class="footer-col-val">
+                Улаанбаатар,<br />Чингэлтэй дүүрэг,<br />MN tower 1107
+              </div>
+            </div>
+          </div>
+          <div class="footer-bottom">
+            <span>Hardware · Software · Service</span>
+            <span>© 2026 Chipmo</span>
+          </div>
+        </div>
+      </footer>
+    </x-dc>
+
+    <!-- ══ DATA ══ -->
+    <script type="text/x-dc" data-dc-script>
+      class Component extends DCLogic {
+        componentDidMount()  { this._imgs(); }
+        componentDidUpdate() { this._imgs(); }
+        _imgs() {
+          document.querySelectorAll('img[data-cimg]').forEach(el => {
+            const v = el.getAttribute('data-cimg');
+            if (v && v.indexOf('{') < 0 && el.getAttribute('src') !== v) el.setAttribute('src', v);
+          });
+        }
+        renderVals() {
+          const cat = (num, page, labelEn, labelMn, intro, products) => {
+            products.forEach((p, i) => { p.no = String(i+1).padStart(2,'0'); p.img = 'assets/' + p.id + '.png'; });
+            return { num, page, labelEn, labelMn, intro, products };
+          };
+          const tags = cat('01','03','RFID Tag','Таг ба наалт',
+            'Бараа, эд хөрөнгө, хувцсыг тэмдэглэх UHF RFID таг — аливаа гадаргуу, орчинд зориулсан.', [
+            { id:'tag-normal', name:'Энгийн наалттай таг', nameEn:'Standard label tag', specs:[{k:'Давтамж',v:'902–928 MHz'},{k:'Протокол',v:'EPC Gen 2'},{k:'Чип',v:'Impinj MR6'}], price:'300 ₮' },
+            { id:'tag-metal',  name:'Анти метал таг',      nameEn:'Metal-mount tag',    specs:[{k:'Давтамж',v:'902–928 MHz'},{k:'Протокол',v:'EPC Gen 2'},{k:'Хэрэглээ',v:'Металл гадаргуу'}], price:'1,500 ₮' },
+            { id:'tag-liquid', name:'Анти шингэн таг',     nameEn:'Liquid-proof tag',   specs:[{k:'Давтамж',v:'902–928 MHz'},{k:'Протокол',v:'EPC Gen 2'},{k:'Хамгаалалт',v:'Waterproof'}], price:'900 ₮' },
+            { id:'tag-wash',   name:'Угаалгын таг',        nameEn:'Laundry tag',        specs:[{k:'Давтамж',v:'902–928 MHz'},{k:'Протокол',v:'EPC Gen 2'},{k:'Тэсвэр',v:'200+ угаалга'}], price:'1,200 ₮' },
+          ]);
+          const handheld = cat('02','04','Handheld readers','Гар уншигч',
+            'Хаана ч авч явахад тохиромжтой, өндөр хүчин чадалтай гар уншигч.', [
+            { id:'c72',   name:'C72',   nameEn:'Handheld reader',  spec:'Android, UHF RFID, 2D scanner',    specs:[{k:'OS',v:'Android 11/13'},{k:'CPU',v:'Octa-core 2.3GHz'},{k:'Батарей',v:'8,000 mAh'},{k:'UHF',v:'≤ 30 м'},{k:'IP',v:'IP65'}], price:'2,700,000 ₮' },
+            { id:'c5',    name:'C5',    nameEn:'Handheld reader',  spec:'Өндөр хүчин чадалтай, Android',    specs:[{k:'OS',v:'Android 11/13'},{k:'CPU',v:'Octa-core 2.2GHz'},{k:'Батарей',v:'6,700–13,400 mAh'},{k:'UHF',v:'≤ 33 м'},{k:'IP',v:'IP65'}], price:'3,300,000 ₮' },
+            { id:'sr160', name:'SR160', nameEn:'Bluetooth reader', spec:'Bluetooth гар уншигч',             specs:[{k:'UHF',v:'7–100 см'},{k:'Протокол',v:'EPC Gen 2'},{k:'Батарей',v:'2,600 mAh'},{k:'BT',v:'BLE 5.0'}], price:'880,000 ₮' },
+            { id:'r6',    name:'R6',    nameEn:'Compact reader',   spec:'Compact, өндөр гүйцэтгэлтэй',     specs:[{k:'UHF',v:'> 26 м'},{k:'Батарей',v:'5,200 mAh'},{k:'BT',v:'BLE 5.0'},{k:'IP',v:'IP54'}], price:'1,800,000 ₮' },
+          ]);
+          const fixed = cat('03','05','Fixed readers','Суурин уншигч',
+            'Гарц, конвейер, агуулахад суурилуулах тогтмол ажиллагаатай уншигч ба антенн.', [
+            { id:'r1',      name:'R1',            nameEn:'1-port fixed reader',     specs:[{k:'UHF',v:'15 см'},{k:'HF',v:'5 см'},{k:'Протокол',v:'UHF + HF/NFC'},{k:'Interface',v:'USB Type-C'}], price:'540,000 ₮' },
+            { id:'r3',      name:'R3',            nameEn:'Multi-port fixed reader', specs:[{k:'UHF',v:'> 100 см'},{k:'Протокол',v:'EPC Gen 2'},{k:'Interface',v:'USB-C + BLE 4.0'},{k:'IP',v:'IP65'}], price:'1,200,000 ₮' },
+            { id:'ura4',    name:'URA4',          nameEn:'4-port enterprise reader',specs:[{k:'OS',v:'Android 9'},{k:'Антенн',v:'4 суваг'},{k:'Хурд',v:'900+ таг/сек'},{k:'Interface',v:'RS232·RJ45·HDMI'}], price:'4,000,000 ₮' },
+            { id:'antenna', name:'12dBi Antenna', nameEn:'High-gain panel antenna', specs:[{k:'Gain',v:'12 dBi'},{k:'Давтамж',v:'902–928 MHz'},{k:'Туйлшрал',v:'RHCP'},{k:'IP',v:'IP67'}], price:'500,000 ₮' },
+          ]);
+          const printers = cat('04','06','Printers & gate','Принтер ба хаалга',
+            'RFID таг хэвлэх принтер, гарцын дохиоллын хаалга.', [
+            { id:'cp30', name:'CP30', nameEn:'Desktop RFID printer', specs:[{k:'Нягтрал',v:'203/300 dpi'},{k:'UHF',v:'902–928 MHz'},{k:'Interface',v:'USB · Ethernet'}], price:'5,900,000 ₮' },
+            { id:'ct20', name:'CT20', nameEn:'RFID alarm gate',      specs:[{k:'Төрөл',v:'UHF RFID хаалга'},{k:'Протокол',v:'EPC Gen 2'},{k:'Хэрэглээ',v:'Дэлгүүр · Агуулах'}], price:'6,500,000 ₮' },
+          ]);
+          const contents = [
+            { num:'01', mn:'Таг ба наалт',  en:'RFID Tags & Labels',  page:'03', href:'#tags' },
+            { num:'02', mn:'Гар уншигч',    en:'Handheld Readers',     page:'04', href:'#handheld' },
+            { num:'03', mn:'Суурин уншигч', en:'Fixed Readers',         page:'05', href:'#fixed' },
+            { num:'04', mn:'Принтер',       en:'Printers & Gate',       page:'06', href:'#printers' },
+          ];
+          return { tags, handheld, fixed, printers, contents, hero: handheld.products[0], handheldRest: handheld.products.slice(1) };
+        }
+      }
+    </script>
+
+    <!-- ══ FADE-IN ON SCROLL ══ -->
+    <script>
+      (function () {
+        function init() {
+          var els = document.querySelectorAll(".fi");
+          if (!els.length) {
+            setTimeout(init, 150);
+            return;
+          }
+          var io = new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (e) {
+                if (e.isIntersecting) {
+                  e.target.classList.add("on");
+                  io.unobserve(e.target);
+                }
+              });
+            },
+            { threshold: 0.1 },
+          );
+          els.forEach(function (el) {
+            io.observe(el);
+          });
+        }
+        if (document.readyState === "loading")
+          document.addEventListener("DOMContentLoaded", init);
+        else setTimeout(init, 150);
+      })();
+
+      // Custom cursor tracking
+      (function () {
+        const cursor = document.getElementById("custom-cursor");
+        if (!cursor) return;
+
+        let mouseX = 0;
+        let mouseY = 0;
+        let cursorX = 0;
+        let cursorY = 0;
+
+        document.addEventListener("mousemove", function (e) {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+        });
+
+        function animate() {
+          cursorX += (mouseX - cursorX) * 0.2;
+          cursorY += (mouseY - cursorY) * 0.2;
+          cursor.style.left = cursorX + "px";
+          cursor.style.top = cursorY + "px";
+          requestAnimationFrame(animate);
+        }
+
+        animate();
+      })();
+
+      // ══ HERO PRODUCT SLIDESHOW ══
+      // Sequence: handheld → tag → fixed reader → handheld → printer → repeat
+      // 5 s dwell: research-backed optimum for product images to register and be recalled
+      // (Nielsen NNG digital signage studies; <3 s too fast, >8 s loses attention)
+      (function () {
+        var DWELL    = 5000; // ms between swaps
+        var EXIT_DUR =  420; // ms for shrink-to-dot exit
+        var timer    = null;
+
+        // sequence slots — each maps to a product category array
+        var sequence = [
+          ['c72', 'C5-Photoroom', 'sr160', 'r6'],                         // handheld
+          ['tag-normal', 'tag-metal', 'tag-liquid', 'tag-wash'], // tag
+          ['r1', 'r3', 'ura4', 'antenna'],                       // fixed reader
+          ['c72', 'C5-Photoroom', 'sr160', 'r6'],                         // handheld (per brief)
+          ['cp30'],                                      // printer
+        ];
+        var lastIdx = [-1, -1, -1, -1, -1]; // avoid repeating same image per slot
+        var step = 0;
+
+        function pickRandom(slot) {
+          var arr = sequence[slot];
+          if (arr.length === 1) { lastIdx[slot] = 0; return arr[0]; }
+          var idx;
+          do { idx = Math.floor(Math.random() * arr.length); } while (idx === lastIdx[slot]);
+          lastIdx[slot] = idx;
+          return arr[idx];
+        }
+
+        function nextSrc() {
+          var s = step;
+          step = (step + 1) % sequence.length;
+          return 'assets/' + pickRandom(s) + '.png';
+        }
+
+        function reveal(img) {
+          img.style.animation = 'none';
+          void img.offsetWidth; // force reflow so animation restarts cleanly
+          img.style.animation = 'heroEnter 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards';
+        }
+
+        function swap(img) {
+          img.style.animation = 'heroExit ' + EXIT_DUR + 'ms ease-in forwards';
+          setTimeout(function () {
+            img.src = nextSrc();
+            if (img.complete && img.naturalWidth) {
+              reveal(img); // already cached
+            } else {
+              img.onload = function () { reveal(img); img.onload = null; };
+            }
+          }, EXIT_DUR + 20);
+        }
+
+        function init() {
+          var img = document.getElementById('hero-product-img');
+          if (!img) { setTimeout(init, 200); return; }
+
+          // animate the initial image in on page load
+          img.style.opacity = '0';
+          setTimeout(function () { reveal(img); }, 150);
+
+          timer = setInterval(function () { swap(img); }, DWELL);
+
+          // pause cycling when tab is hidden to avoid catch-up jumble on return
+          document.addEventListener('visibilitychange', function () {
+            if (document.hidden) {
+              clearInterval(timer);
+            } else {
+              swap(img);
+              timer = setInterval(function () { swap(img); }, DWELL);
+            }
+          });
+        }
+
+        if (document.readyState === 'loading')
+          document.addEventListener('DOMContentLoaded', init);
+        else setTimeout(init, 200);
+      })();
+
+      // ══ MOBILE NAV TOGGLE ══
+      // Event delegation on document — immune to x-dc re-renders
+      document.addEventListener('click', function (e) {
+        var nav = document.getElementById('nav');
+        if (!nav) return;
+
+        if (e.target.closest('#nav-toggle')) {
+          // Toggle button: flip state
+          nav.classList.toggle('menu-open');
+          return;
+        }
+
+        if (e.target.closest('#nav-mobile')) {
+          // Any tap inside the mobile panel (e.g. a link): close
+          nav.classList.remove('menu-open');
+          return;
+        }
+
+        // Tap anywhere outside the nav: close
+        if (!e.target.closest('#nav')) {
+          nav.classList.remove('menu-open');
+        }
+      });
+
+    </script>
+  </body>
+</html>
