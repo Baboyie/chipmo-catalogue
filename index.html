@@ -536,7 +536,7 @@
           }
           .stats-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr;
             gap: 10px;
             margin: 24px 0;
           }
@@ -682,18 +682,19 @@
             padding: 0 28px 32px;
           }
           .pm-img-wrap {
-            flex: 0 0 200px;
+            flex: 0 0 220px;
+            width: 220px;
+            height: 220px;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: radial-gradient(ellipse 80% 70% at 50% 50%, rgba(61,139,255,0.14) 0%, transparent 72%);
-            border-radius: 12px;
-            padding: 24px 16px;
-            min-height: 180px;
+            background: radial-gradient(ellipse 80% 80% at 50% 50%, rgba(61,139,255,0.13) 0%, transparent 72%);
+            border-radius: 14px;
+            padding: 14px;
           }
           .pm-img-wrap img {
-            max-width: 100%;
-            max-height: 200px;
+            width: 100%;
+            height: 100%;
             object-fit: contain;
             filter: drop-shadow(0 8px 24px rgba(0,0,0,0.55)) drop-shadow(0 0 14px rgba(61,139,255,0.22));
           }
@@ -757,7 +758,7 @@
           .pm-spec-v { color: #c8d4e8; font-weight: 600; text-align: right; }
           @media (max-width: 520px) {
             .pm-inner { flex-direction: column; padding: 0 18px 24px; }
-            .pm-img-wrap { flex: none; min-height: 130px; }
+            .pm-img-wrap { flex: none; width: 100%; height: 180px; }
             .pm-name { font-size: 20px; }
           }
 
@@ -1285,22 +1286,18 @@
           <a href="#tags"     class="ticker-item"><img src="assets/tag-normal.webp" alt=""><div class="ticker-item-name">Таг</div></a>
           <a href="#fixed"    class="ticker-item"><img src="assets/r1.webp"         alt=""><div class="ticker-item-name">Суурин уншигч</div></a>
           <a href="#printers" class="ticker-item"><img src="assets/cp30.webp"       alt=""><div class="ticker-item-name">Принтер</div></a>
-          <a href="#printers" class="ticker-item"><img src="assets/ct20.webp"       alt=""><div class="ticker-item-name">Хаалга</div></a>
           <a href="#handheld" class="ticker-item" aria-hidden="true" tabindex="-1"><img src="assets/c72.webp"        alt=""><div class="ticker-item-name">Гар уншигч</div></a>
           <a href="#tags"     class="ticker-item" aria-hidden="true" tabindex="-1"><img src="assets/tag-normal.webp" alt=""><div class="ticker-item-name">Таг</div></a>
           <a href="#fixed"    class="ticker-item" aria-hidden="true" tabindex="-1"><img src="assets/r1.webp"         alt=""><div class="ticker-item-name">Суурин уншигч</div></a>
           <a href="#printers" class="ticker-item" aria-hidden="true" tabindex="-1"><img src="assets/cp30.webp"       alt=""><div class="ticker-item-name">Принтер</div></a>
-          <a href="#printers" class="ticker-item" aria-hidden="true" tabindex="-1"><img src="assets/ct20.webp"       alt=""><div class="ticker-item-name">Хаалга</div></a>
           <a href="#handheld" class="ticker-item" aria-hidden="true" tabindex="-1"><img src="assets/c72.webp"        alt=""><div class="ticker-item-name">Гар уншигч</div></a>
           <a href="#tags"     class="ticker-item" aria-hidden="true" tabindex="-1"><img src="assets/tag-normal.webp" alt=""><div class="ticker-item-name">Таг</div></a>
           <a href="#fixed"    class="ticker-item" aria-hidden="true" tabindex="-1"><img src="assets/r1.webp"         alt=""><div class="ticker-item-name">Суурин уншигч</div></a>
           <a href="#printers" class="ticker-item" aria-hidden="true" tabindex="-1"><img src="assets/cp30.webp"       alt=""><div class="ticker-item-name">Принтер</div></a>
-          <a href="#printers" class="ticker-item" aria-hidden="true" tabindex="-1"><img src="assets/ct20.webp"       alt=""><div class="ticker-item-name">Хаалга</div></a>
           <a href="#handheld" class="ticker-item" aria-hidden="true" tabindex="-1"><img src="assets/c72.webp"        alt=""><div class="ticker-item-name">Гар уншигч</div></a>
           <a href="#tags"     class="ticker-item" aria-hidden="true" tabindex="-1"><img src="assets/tag-normal.webp" alt=""><div class="ticker-item-name">Таг</div></a>
           <a href="#fixed"    class="ticker-item" aria-hidden="true" tabindex="-1"><img src="assets/r1.webp"         alt=""><div class="ticker-item-name">Суурин уншигч</div></a>
           <a href="#printers" class="ticker-item" aria-hidden="true" tabindex="-1"><img src="assets/cp30.webp"       alt=""><div class="ticker-item-name">Принтер</div></a>
-          <a href="#printers" class="ticker-item" aria-hidden="true" tabindex="-1"><img src="assets/ct20.webp"       alt=""><div class="ticker-item-name">Хаалга</div></a>
         </div>
       </div>
 
@@ -1325,34 +1322,16 @@
               </p>
               <div class="stats-grid">
                 <div class="stat">
-                  <div class="stat-val accent">5</div>
-                  <div class="stat-lbl">Product lines</div>
-                </div>
-                <div class="stat">
-                  <div class="stat-val small">UHF<br />902–928</div>
+                  <div class="stat-val small">UHF<br />860–960</div>
                   <div class="stat-lbl">MHz frequency</div>
                 </div>
                 <div class="stat">
-                  <div class="stat-val">33m</div>
+                  <div class="stat-val">30m</div>
                   <div class="stat-lbl">Max read range</div>
                 </div>
                 <div class="stat">
-                  <div class="stat-val">900+</div>
+                  <div class="stat-val">1300+</div>
                   <div class="stat-lbl">Tags/sec</div>
-                </div>
-              </div>
-              <div class="pills">
-                <div class="pill">
-                  <div class="pill-name">Hardware</div>
-                  <div class="pill-sub">Таг, уншигч, антенн</div>
-                </div>
-                <div class="pill">
-                  <div class="pill-name">Software</div>
-                  <div class="pill-sub">Бүртгэл, хяналт</div>
-                </div>
-                <div class="pill">
-                  <div class="pill-name">Service</div>
-                  <div class="pill-sub">Суурилуулалт</div>
                 </div>
               </div>
               <a href="https://chipmo.mn" target="_blank" rel="noopener" class="overview-more">
@@ -1608,62 +1587,63 @@
         }
         renderVals() {
           const cat = (num, page, labelEn, labelMn, intro, products) => {
-            products.forEach((p, i) => { p.no = String(i+1).padStart(2,'0'); p.img = 'assets/' + p.id + '.webp'; });
+            products.forEach((p, i) => { p.no = String(i+1).padStart(2,'0'); if (!p.img) p.img = 'assets/' + p.id + '.webp'; });
             return { num, page, labelEn, labelMn, intro, products };
           };
           const tags = cat('01','03','RFID Tag','Таг ба наалт',
             'Бараа, эд хөрөнгө, хувцсыг тэмдэглэх UHF RFID таг — аливаа гадаргуу, орчинд зориулсан.', [
-            { id:'tag-normal', name:'Энгийн наалттай таг', nameEn:'Standard label tag', specs:[{k:'Давтамж',v:'902–928 MHz'},{k:'Протокол',v:'EPC Gen 2'},{k:'Чип',v:'Impinj MR6'}], price:'300 ₮',
+            { id:'tag-normal', name:'Энгийн наалттай таг', nameEn:'Standard label tag', specs:[{k:'Давтамж',v:'860–960 MHz'},{k:'Протокол',v:'EPC Gen 2'}], price:'300 ₮',
               desc:'Хамгийн түгээмэл хэрэглэгддэг UHF RFID наалттай таг. Агуулах, эд хөрөнгийн бүртгэлд хамгийн тохиромжтой.',
-              fullSpecs:[{k:'Давтамж',v:'860–960 MHz'},{k:'Протокол',v:'EPC Gen 2 ISO 18000-6C'},{k:'Чип',v:'Impinj MR6'},{k:'Хэмжээ',v:'85 × 54 мм'},{k:'Материал',v:'PET наалт'},{k:'Уншилт',v:'≤ 8 м'},{k:'Дахин бичих',v:'10,000+ удаа'},{k:'Температур',v:'-30°C ~ +70°C'}] },
-            { id:'tag-metal',  name:'Анти метал таг',      nameEn:'Metal-mount tag',    specs:[{k:'Давтамж',v:'902–928 MHz'},{k:'Протокол',v:'EPC Gen 2'},{k:'Хэрэглээ',v:'Металл гадаргуу'}], price:'1,500 ₮',
+              fullSpecs:[{k:'Давтамж',v:'860–960 MHz'},{k:'Уншилт',v:'≤ 8 м'},{k:'Дахин бичих',v:'10,000+ удаа'},{k:'Температур',v:'-30°C ~ +70°C'}] },
+            { id:'tag-metal',  name:'Анти метал таг',      nameEn:'Metal-mount tag',    specs:[{k:'Давтамж',v:'860–960 MHz'},{k:'Протокол',v:'EPC Gen 2'},{k:'Хэрэглээ',v:'Металл гадаргуу'}], price:'1,500 ₮',
               desc:'Металл гадаргуу дээр тавихад тохиромжтой. Ердийн тагнаас ялгаатай нь металл орчинд сигналыг тусган уншигддаг.',
-              fullSpecs:[{k:'Давтамж',v:'860–960 MHz'},{k:'Протокол',v:'EPC Gen 2'},{k:'Чип',v:'Alien Higgs-3'},{k:'Хэмжээ',v:'57 × 17 × 6.5 мм'},{k:'Материал',v:'ABS хуванцар'},{k:'Уншилт',v:'0–5 см (металл дээр)'},{k:'IP',v:'IP67'},{k:'Наах аргa',v:'Шураг / наалт'}] },
-            { id:'tag-liquid', name:'Анти шингэн таг',     nameEn:'Liquid-proof tag',   specs:[{k:'Давтамж',v:'902–928 MHz'},{k:'Протокол',v:'EPC Gen 2'},{k:'Хамгаалалт',v:'Waterproof'}], price:'900 ₮',
+              fullSpecs:[{k:'Давтамж',v:'860–960 MHz'},{k:'Уншилт',v:'0–5 см (металл дээр)'},{k:'IP',v:'IP67'},{k:'Наах арга',v:'Шураг / наалт'}] },
+            { id:'tag-case',   name:'Анти метал case-тэй таг', nameEn:'Metal-mount tag with case', img:'assets/anti-metal-case.png', specs:[{k:'Давтамж',v:'860-960 MHz'},{k:'Протокол',v:'EPC Gen 2'},{k:'Хэрэглээ',v:'Металл · Хатуу орчин'}], price:'2,500 ₮',
+              desc:'Хатуу ABS корпустай анти метал UHF RFID таг. Металл тоног төхөөрөмж, машины хаалт, дугуй, хатуу орчинд бэхэлж хэрэглэнэ.',
+              fullSpecs:[{k:'Давтамж',v:'860–960 MHz'},{k:'Уншилт',v:'≤ 3 м (металл дээр)'},{k:'IP',v:'IP67'},{k:'Бэхэлгээ',v:'Шураг / хавчаар'}] },
+            { id:'tag-liquid', name:'Анти шингэн таг',     nameEn:'Liquid-proof tag',   specs:[{k:'Давтамж',v:'860–960 MHz'},{k:'Протокол',v:'EPC Gen 2'},{k:'Хамгаалалт',v:'Waterproof'}], price:'900 ₮',
               desc:'Ус, шингэнтэй ойр орчинд хэрэглэгдэх зориулалттай. Ундаа, химийн бодисны лааз, хоолой, хагас усан орчинд.',
-              fullSpecs:[{k:'Давтамж',v:'860–960 MHz'},{k:'Протокол',v:'EPC Gen 2 ISO 18000-6C'},{k:'Хэмжээ',v:'45 × 8.5 × 4 мм'},{k:'Материал',v:'PC + Эпокси'},{k:'Уншилт',v:'≤ 3 см'},{k:'Хамгаалалт',v:'IP68 Waterproof'},{k:'Температур',v:'-20°C ~ +80°C'},{k:'Хэрэглээ',v:'Химийн, ундааны савлагаа'}] },
-            { id:'tag-wash',   name:'Угаалгын таг',        nameEn:'Laundry tag',        specs:[{k:'Давтамж',v:'902–928 MHz'},{k:'Протокол',v:'EPC Gen 2'},{k:'Тэсвэр',v:'200+ угаалга'}], price:'1,200 ₮',
+              fullSpecs:[{k:'Давтамж',v:'860–960 MHz'},{k:'Уншилт',v:'≤ 3 см'},{k:'Хамгаалалт',v:'IP68 Waterproof'},{k:'Температур',v:'-20°C ~ +80°C'}] },
+            { id:'tag-wash',   name:'Угаалгын таг',        nameEn:'Laundry tag',        specs:[{k:'Давтамж',v:'860–960 MHz'},{k:'Протокол',v:'EPC Gen 2'},{k:'Тэсвэр',v:'200+ угаалга'}], price:'1,200 ₮',
               desc:'Угаалгын машинд 200 гаруй удаа угаах боломжтой. Зочид буудал, эмнэлэг, хөнжил, цагаан хэрэглэлийн бүртгэлд.',
-              fullSpecs:[{k:'Давтамж',v:'860–960 MHz'},{k:'Протокол',v:'EPC Gen 2'},{k:'Хэмжээ',v:'36 × 11 мм'},{k:'Материал',v:'Нейлон + силикон'},{k:'Тэвчээр',v:'200+ угаалга'},{k:'Температур',v:'95°C хүртэл'},{k:'IP',v:'IP68'},{k:'Хэрэглээ',v:'Хувцас, хөнжил, алчуур'}] },
+              fullSpecs:[{k:'Тэвчээр',v:'200+ угаалга'},{k:'Температур',v:'95°C хүртэл'},{k:'IP',v:'IP68'},{k:'Давтамж',v:'860–960 MHz'}] },
           ]);
           const handheld = cat('02','04','Handheld readers','Гар уншигч',
             'Хаана ч авч явахад тохиромжтой, өндөр хүчин чадалтай гар уншигч.', [
             { id:'c72',   name:'C72',   nameEn:'Handheld reader',  spec:'Android, UHF RFID, 2D scanner',  specs:[{k:'OS',v:'Android 11/13'},{k:'CPU',v:'Octa-core 2.3GHz'},{k:'Батарей',v:'8,000 mAh'},{k:'UHF',v:'≤ 30 м'},{k:'IP',v:'IP65'}], price:'2,700,000 ₮',
               desc:'Chainway C72 — Android-д суурилсан, UHF RFID болон 2D баркод уншдаг хослол гар уншигч. Агуулах, дэлгүүрийн ажилд хамгийн тохиромжтой.',
-              fullSpecs:[{k:'OS',v:'Android 11 / Android 13'},{k:'CPU',v:'Octa-core 2.3 GHz'},{k:'RAM / ROM',v:'3 GB / 32 GB'},{k:'Дэлгэц',v:'5.5" IPS 1440×720'},{k:'Батарей',v:'8,000 mAh (солигдох)'},{k:'UHF уншилт',v:'≤ 30 м'},{k:'2D сканнер',v:'Zebra SE4710'},{k:'Дамжуулалт',v:'WiFi, 4G LTE, BT 5.0, NFC'},{k:'IP',v:'IP65'},{k:'Жин',v:'480 г'}] },
-            { id:'c5',    name:'C5',    nameEn:'Handheld reader',  spec:'Өндөр хүчин чадалтай, Android',  specs:[{k:'OS',v:'Android 11/13'},{k:'CPU',v:'Octa-core 2.2GHz'},{k:'Батарей',v:'6,700–13,400 mAh'},{k:'UHF',v:'≤ 33 м'},{k:'IP',v:'IP65'}], price:'3,300,000 ₮',
-              desc:'Chainway C5 — хамгийн өндөр хүчин чадалтай, 33м хүртэл уншдаг, 5G холболттой premium гар уншигч. Том агуулах, logistics-д зориулагдсан.',
-              fullSpecs:[{k:'OS',v:'Android 11 / Android 13'},{k:'CPU',v:'Octa-core 2.2 GHz'},{k:'RAM / ROM',v:'4–6 GB / 64–128 GB'},{k:'Дэлгэц',v:'6.0" FHD+ 2160×1080'},{k:'Батарей',v:'6,700 / 13,400 mAh (extended)'},{k:'UHF уншилт',v:'≤ 33 м'},{k:'Дамжуулалт',v:'WiFi 6, 5G, BT 5.0, NFC'},{k:'IP',v:'IP65 / IP67'},{k:'Унах тэсвэр',v:'1.5 м'},{k:'Жин',v:'560 г'}] },
+              fullSpecs:[{k:'UHF уншилт',v:'≤ 30 м'},{k:'OS',v:'Android 11 / 13'},{k:'Батарей',v:'8,000 mAh'},{k:'2D сканнер',v:'Zebra SE4710'},{k:'Дамжуулалт',v:'WiFi, 4G LTE, BT 5.0, NFC'},{k:'IP',v:'IP65'}] },
+            { id:'c5',    name:'C5',    nameEn:'Handheld reader',  spec:'Өндөр хүчин чадалтай, Android',  specs:[{k:'OS',v:'Android 11/13'},{k:'CPU',v:'Octa-core 2.3GHz'},{k:'Батарей',v:'7,000–13,400 mAh'},{k:'UHF',v:'≤ 30 м'},{k:'IP',v:'IP65'}], price:'3,300,000 ₮',
+              desc:'Chainway C5 — хамгийн өндөр хүчин чадалтай, 33м хүртэл уншдаг, WiFi/4G LTE холболттой premium гар уншигч. Том агуулах, logistics-д зориулагдсан.',
+              fullSpecs:[{k:'UHF уншилт',v:'≤ 33 м'},{k:'OS',v:'Android 11 / 13'},{k:'Батарей',v:'7,000 / 13,400 mAh'},{k:'Дамжуулалт',v:'WiFi 5, 4G LTE, BT 5.0, NFC'},{k:'IP',v:'IP65'},{k:'Унах тэсвэр',v:'1.5 м'}] },
             { id:'sr160', name:'SR160', nameEn:'Bluetooth reader', spec:'Bluetooth гар уншигч',           specs:[{k:'UHF',v:'7–100 см'},{k:'Протокол',v:'EPC Gen 2'},{k:'Батарей',v:'2,600 mAh'},{k:'BT',v:'BLE 5.0'}], price:'880,000 ₮',
               desc:'Хөнгөн, Bluetooth-ээр ухаалаг утас/таблеттай холбогдох compact RFID уншигч. Дэлгүүр, нийтийн тасалбарт хамгийн тохиромжтой.',
-              fullSpecs:[{k:'UHF уншилт',v:'7–100 см'},{k:'Протокол',v:'EPC Gen 2 ISO 18000-6C'},{k:'Bluetooth',v:'BLE 5.0'},{k:'Батарей',v:'2,600 mAh'},{k:'Цэнэглэлт',v:'USB-C'},{k:'Жин',v:'156 г'},{k:'Trigger товч',v:'Scan button'},{k:'Дэмжих OS',v:'Android / iOS / Windows'}] },
+              fullSpecs:[{k:'UHF уншилт',v:'7–100 см'},{k:'Холболт',v:'BLE 5.0'},{k:'Батарей',v:'2,600 mAh'},{k:'Цэнэглэлт',v:'USB-C'},{k:'Дэмжих OS',v:'Android / Windows'}] },
             { id:'r6',    name:'R6',    nameEn:'Compact reader',   spec:'Compact, өндөр гүйцэтгэлтэй',   specs:[{k:'UHF',v:'> 26 м'},{k:'Батарей',v:'5,200 mAh'},{k:'BT',v:'BLE 5.0'},{k:'IP',v:'IP54'}], price:'1,800,000 ₮',
-              desc:'Chainway R6 — дунд хэмжээний, хурдан уншдаг гар RFID уншигч. 26м+ хүртэл уншиж, 750+ таг/сек хурдтай ажилладаг.',
-              fullSpecs:[{k:'UHF уншилт',v:'> 26 м'},{k:'Хурд',v:'750+ таг/сек'},{k:'Батарей',v:'5,200 mAh'},{k:'Bluetooth',v:'BLE 5.0'},{k:'Дамжуулалт',v:'WiFi, 4G LTE, BT 5.0'},{k:'GPS',v:'GPS + GLONASS'},{k:'Дэлгэц',v:'Touch'},{k:'IP',v:'IP54'}] },
+              desc:'Chainway R6 — Bluetooth sled RFID уншигч. 26м+ хүртэл уншиж, 1,000+ таг/сек хурдтай ажилладаг. Ухаалаг утастай хослуулан хэрэглэнэ.',
+              fullSpecs:[{k:'UHF уншилт',v:'> 26 м'},{k:'Хурд',v:'1,000+ таг/сек'},{k:'Батарей',v:'5,200 mAh'},{k:'Холболт',v:'BLE 5.0'},{k:'IP',v:'IP54'}] },
           ]);
           const fixed = cat('03','05','Fixed readers','Суурин уншигч',
             'Гарц, конвейер, агуулахад суурилуулах тогтмол ажиллагаатай уншигч ба антенн.', [
             { id:'r1',      name:'R1',            nameEn:'1-port fixed reader',      specs:[{k:'UHF',v:'15 см'},{k:'HF',v:'5 см'},{k:'Протокол',v:'UHF + HF/NFC'},{k:'Interface',v:'USB Type-C'}], price:'540,000 ₮',
               desc:'Desktop USB dual-frequency уншигч. UHF болон HF/NFC хоёуланг нь дэмждэг. Регистр, ширээний ажлын станцад тохиромжтой.',
-              fullSpecs:[{k:'UHF уншилт',v:'15 см'},{k:'HF / NFC',v:'5 см'},{k:'Протокол',v:'EPC Gen 2 + ISO 15693/14443'},{k:'Interface',v:'USB Type-C'},{k:'Тэжээл',v:'USB-аас (bus-powered)'},{k:'Дэмжих OS',v:'Windows / Android / Linux'},{k:'Хэмжээ',v:'110 × 76 × 16 мм'},{k:'Жин',v:'130 г'}] },
-            { id:'r3',      name:'R3',            nameEn:'Multi-port fixed reader',  specs:[{k:'UHF',v:'> 100 см'},{k:'Протокол',v:'EPC Gen 2'},{k:'Interface',v:'USB-C + BLE 4.0'},{k:'IP',v:'IP65'}], price:'1,200,000 ₮',
-              desc:'Хаалга, нэвтрэлт хяналтад суурилуулах 2 антеннтай суурин RFID уншигч. IP65 хамгаалалттай, гадна байршилд тохиромжтой.',
-              fullSpecs:[{k:'UHF уншилт',v:'> 100 см'},{k:'Протокол',v:'EPC Gen 2 ISO 18000-6C'},{k:'Антенн порт',v:'2 × RP-TNC'},{k:'Хурд',v:'200+ таг/сек'},{k:'Interface',v:'USB-C, BLE 4.0'},{k:'Тэжээл',v:'12V DC / USB'},{k:'IP',v:'IP65'},{k:'Хэмжээ',v:'255 × 160 × 55 мм'}] },
-            { id:'ura4',    name:'URA4',          nameEn:'4-port enterprise reader', specs:[{k:'OS',v:'Android 9'},{k:'Антенн',v:'4 суваг'},{k:'Хурд',v:'900+ таг/сек'},{k:'Interface',v:'RS232·RJ45·HDMI'}], price:'4,000,000 ₮',
+              fullSpecs:[{k:'UHF уншилт',v:'15 см'},{k:'HF / NFC',v:'5 см'},{k:'Interface',v:'USB Type-C'},{k:'Тэжээл',v:'USB bus-powered'},{k:'Дэмжих OS',v:'Windows / Linux'}] },
+            { id:'r3',      name:'R3',            nameEn:'Desktop pad reader',       specs:[{k:'UHF',v:'0–50 см'},{k:'Протокол',v:'EPC Gen 2'},{k:'Interface',v:'USB-C + BLE 4.0'},{k:'IP',v:'IP65'}], price:'1,200,000 ₮',
+              desc:'Ширээний pad хэлбэрийн суурин RFID уншигч. Дэлгүүр, регистр, нэвтрэлт хяналтад суурилуулахад тохиромжтой. IP65 хамгаалалттай.',
+              fullSpecs:[{k:'UHF уншилт',v:'0–50 см'},{k:'Interface',v:'USB-C, BLE 4.0'},{k:'IP',v:'IP65'},{k:'Хэмжээ',v:'318 × 318 × 20 мм'}] },
+            { id:'ura4',    name:'URA4',          nameEn:'4-port enterprise reader', specs:[{k:'OS',v:'Android 9'},{k:'Антенн',v:'4 суваг'},{k:'Хурд',v:'1,300+ таг/сек'},{k:'Interface',v:'RS232·RJ45·HDMI'}], price:'4,000,000 ₮',
               desc:'4 портын enterprise-зэрэглэлийн RFID суурин уншигч. Android OS, HDMI дэлгэц, PoE дэмждэг. Их хэмжээний агуулахад зориулагдсан.',
-              fullSpecs:[{k:'OS',v:'Android 9'},{k:'CPU',v:'Quad-core 1.8 GHz'},{k:'RAM / ROM',v:'2 GB / 16 GB'},{k:'Антенн порт',v:'4 × RP-TNC'},{k:'Уншилт',v:'≤ 12 м'},{k:'Хурд',v:'900+ таг/сек'},{k:'Interface',v:'RS232, RJ45, HDMI, USB'},{k:'PoE',v:'802.3at'},{k:'IP',v:'IP64'},{k:'Хэмжээ',v:'310 × 205 × 48 мм'}] },
-            { id:'antenna', name:'12dBi Antenna', nameEn:'High-gain panel antenna',  specs:[{k:'Gain',v:'12 dBi'},{k:'Давтамж',v:'902–928 MHz'},{k:'Туйлшрал',v:'RHCP'},{k:'IP',v:'IP67'}], price:'500,000 ₮',
+              fullSpecs:[{k:'Антенн порт',v:'4 × RP-TNC'},{k:'Хурд',v:'1,300+ таг/сек'},{k:'Interface',v:'RS232, RJ45, HDMI, USB'},{k:'PoE',v:'802.3af / 802.3at'},{k:'Хэмжээ',v:'214 × 148 × 30 мм'}] },
+            { id:'antenna', name:'12dBi Antenna', nameEn:'High-gain panel antenna',  specs:[{k:'Gain',v:'12 dBi'},{k:'Давтамж',v:'860–960 MHz'},{k:'Туйлшрал',v:'RHCP'},{k:'IP',v:'IP67'}], price:'500,000 ₮',
               desc:'Өндөр хүчтэй (12 dBi) дугуй туйлшралтай панел антенн. Гарц, конвейер, агуулахын тааз дээр суурилуулахад тохиромжтой.',
-              fullSpecs:[{k:'Gain',v:'12 dBi'},{k:'Давтамж',v:'902–928 MHz'},{k:'Туйлшрал',v:'RHCP (right-hand circular)'},{k:'VSWR',v:'< 1.5'},{k:'Connector',v:'N-type'},{k:'IP',v:'IP67'},{k:'Материал',v:'ABS + Al хүрээ'},{k:'Хэмжээ',v:'320 × 320 × 40 мм'}] },
+              fullSpecs:[{k:'Gain',v:'12 dBi'},{k:'Давтамж',v:'860–960 MHz'},{k:'Туйлшрал',v:'RHCP'},{k:'Connector',v:'N-type'},{k:'IP',v:'IP67'}] },
           ]);
           const printers = cat('04','06','Printers & gate','Принтер ба хаалга',
             'RFID таг хэвлэх принтер, гарцын дохиоллын хаалга.', [
-            { id:'cp30', name:'CP30', nameEn:'Desktop RFID printer', specs:[{k:'Нягтрал',v:'203/300 dpi'},{k:'UHF',v:'860–928 MHz'},{k:'Interface',v:'USB · BT · Ethernet'}], price:'5,900,000 ₮',
-              desc:'Chainway CP30 — 4 инчийн UHF RFID таг хэвлэх ширээний принтер. Impinj E510 encode module-тай, хэвлэхтэй зэрэг тагт бичдэг. Агуулах, дэлгүүр, логистикийн RFID таг үйлдвэрлэлд зориулагдсан.',
-              fullSpecs:[{k:'Нягтрал',v:'203 dpi / 300 dpi'},{k:'Хэвлэх өргөн',v:'108 мм (203dpi) / 106 мм (300dpi)'},{k:'Хэвлэх хурд',v:'8 ips (203dpi) / 6 ips (300dpi)'},{k:'UHF давтамж',v:'860–928 MHz'},{k:'RFID протокол',v:'EPC C1G2 ISO 18000-6C'},{k:'RFID module',v:'Impinj E510 (M6E-NANO)'},{k:'Цаасны өргөн',v:'25.4–118 мм'},{k:'Хэвлэх арга',v:'Thermal transfer / Direct thermal'},{k:'Дэлгэц',v:'3.5" LCD touch screen'},{k:'Interface',v:'USB, Ethernet, Bluetooth'},{k:'Тэжээл',v:'100–240V AC'},{k:'Температур',v:'5°C – 40°C'}] },
-            { id:'ct20', name:'CT20', nameEn:'RFID alarm gate',      specs:[{k:'Төрөл',v:'UHF RFID хаалга'},{k:'Протокол',v:'EPC Gen 2'},{k:'Хэрэглээ',v:'Дэлгүүр · Агуулах'}], price:'6,500,000 ₮',
-              desc:'Гарцын RFID таг уншигч хаалга. Дэлгүүр, агуулахын оролт, гаралтад суурилуулна. Зөвшөөрөлгүй гарвал дохиоллын систем асдаг.',
-              fullSpecs:[{k:'Төрөл',v:'UHF RFID хаалга'},{k:'Протокол',v:'EPC Gen 2 ISO 18000-6C'},{k:'Давтамж',v:'902–928 MHz'},{k:'Хүч',v:'30 dBm (1 W)'},{k:'Уншилт',v:'≤ 2 м'},{k:'Антенн',v:'4 × built-in'},{k:'Дохиолол',v:'LED + дуут'},{k:'Interface',v:'RJ45 Ethernet, RS232'},{k:'Хэмжээ',v:'1800 × 800 × 200 мм'}] },
+            { id:'cp30', name:'CP30', nameEn:'Desktop RFID printer', specs:[{k:'Нягтрал',v:'203/300 dpi'},{k:'UHF',v:'860–928 MHz'},{k:'Interface',v:'USB · Ethernet'}], price:'5,900,000 ₮',
+              desc:'Chainway CP30 — 4 инчийн UHF RFID таг хэвлэх ширээний принтер. Impinj Gen2X encode module-тай, хэвлэхтэй зэрэг тагт бичдэг. Агуулах, дэлгүүр, логистикийн RFID таг үйлдвэрлэлд зориулагдсан.',
+              fullSpecs:[{k:'Нягтрал',v:'203 / 300 dpi'},{k:'Хэвлэх хурд',v:'8 ips (203dpi) / 6 ips (300dpi)'},{k:'RFID module',v:'Impinj Gen2X'},{k:'Цаасны өргөн',v:'25.4–118 мм'},{k:'Interface',v:'USB, Ethernet'}] },
+
           ]);
           const contents = [
             { num:'01', mn:'Таг ба наалт',  en:'RFID Tags & Labels',  page:'03', href:'#tags' },
@@ -1823,13 +1803,14 @@
           'c72','c5','sr160','r6',
           'tag-normal','tag-metal','tag-liquid','tag-wash',
           'r1','r3','ura4','antenna',
-          'cp30','ct20'
+          'cp30'
         ];
         function preload() {
           imgs.forEach(function (id) {
             var i = new Image();
             i.src = 'assets/' + id + '.webp';
           });
+          (new Image()).src = 'assets/anti-metal-case.png';
         }
         // Defer until after the page is interactive so it doesn't compete with
         // the initial render
